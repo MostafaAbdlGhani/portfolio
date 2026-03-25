@@ -295,16 +295,69 @@
   .arch-nodes { flex-direction: column; }
   .arch-node::after { display: none; }
 }
+
 @media (max-width: 768px) {
-  nav { padding: 1rem 1.5rem; }
-  .nav-links { gap: 1rem; }
-  section { padding: 5rem 1.5rem; }
-  .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+  /* Base font scale down */
+  body { font-size: 15px; }
+  .hero-desc { font-size: 1.1rem; }
+  .codex-body { font-size: 0.95rem; }
+  .analysis-content p { font-size: 1rem; }
+  .contact-sub { font-size: 1rem; }
+
+  /* Nav — scrollable row */
+  nav {
+    padding: 0.9rem 1.2rem;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.6rem;
+  }
+  .nav-links {
+    gap: 0.8rem;
+    overflow-x: auto;
+    width: 100%;
+    padding-bottom: 2px;
+    flex-wrap: nowrap;
+  }
+  .nav-links a { font-size: 0.6rem; white-space: nowrap; }
+
+  /* Sections */
+  section { padding: 4rem 1.2rem; }
+  #contact { padding: 5rem 1.2rem; }
+
+  /* Layouts */
+  .about-grid { grid-template-columns: 1fr; gap: 2rem; }
   .skills-container { grid-template-columns: 1fr; }
   .project-card.featured { grid-template-columns: 1fr; }
   .arts-grid { grid-template-columns: 1fr; }
-  .char-stats-grid { grid-template-columns: repeat(2,1fr); }
-  footer { padding: 1.5rem; flex-direction: column; gap: 0.5rem; }
+  .art-wide { grid-column: span 1; }
+  .art-wide .art-placeholder { aspect-ratio: 16/9; }
+  .char-stats-grid { grid-template-columns: repeat(2, 1fr); }
+
+  /* Character sheets — single column */
+  div[style*="grid-template-columns:1fr 1fr 1fr"] {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Code blocks — contain overflow, don't blow out the page */
+  .forge-grid { grid-template-columns: 1fr; gap: 1rem; }
+  .code-body { font-size: 0.68rem; }
+  .code-body pre { white-space: pre; }
+
+  /* Architecture */
+  .arch-nodes { flex-direction: column; }
+  .arch-node::after { display: none; }
+  .arch-node { padding: 0.8rem; }
+
+  /* Codex grid */
+  .codex-grid { grid-template-columns: 1fr; }
+
+  /* Hero */
+  .hero-title { font-size: 2.2rem; }
+  .bonfire-svg { width: 80px; height: 95px; }
+
+  /* Footer */
+  footer { padding: 1.2rem; flex-direction: column; gap: 0.5rem; text-align: center; }
 }
 </style>
 </head>
