@@ -1,0 +1,1096 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mostafa Abdl Ghani — Game Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cinzel+Decorative:wght@400;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ember: #c8820a;
+    --ember-bright: #f0a030;
+    --ember-dim: #7a4f08;
+    --bone: #d4c9a8;
+    --stone: #1a1a1a;
+    --void: #080808;
+    --mist: #2a2a2a;
+    --ash: #555;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--void); color: var(--bone); font-family: 'EB Garamond', Georgia, serif; font-size: 18px; line-height: 1.75; cursor: default; overflow-x: hidden; }
+  body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E"); pointer-events: none; z-index: 999; opacity: 0.5; }
+
+  /* NAV */
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1.2rem 3rem; display: flex; justify-content: space-between; align-items: center; background: linear-gradient(to bottom, rgba(8,8,8,0.97), transparent); border-bottom: 1px solid rgba(200,130,10,0.12); }
+  .nav-sigil { font-family: 'Cinzel Decorative', serif; font-size: 0.9rem; color: var(--ember); letter-spacing: 0.15em; text-decoration: none; flex-shrink: 0; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; flex-wrap: wrap; }
+  .nav-links a { font-family: 'Cinzel', serif; font-size: 0.7rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255, 255, 255, 0.477); text-decoration: none; transition: color 0.3s; }
+  .nav-links a:hover { color: var(--ember-bright); }
+
+  /* HERO */
+  #hero { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 6rem 2rem 4rem; position: relative; overflow: hidden; }
+  #hero::after { content: ''; position: absolute; bottom: -10%; left: 50%; transform: translateX(-50%); width: 600px; height: 300px; background: radial-gradient(ellipse at center bottom, rgba(200,130,10,0.15) 0%, transparent 70%); pointer-events: none; }
+  .bonfire-svg { width: 120px; height: 140px; margin-bottom: 2.5rem; animation: flicker 2.5s ease-in-out infinite; }
+  @keyframes flicker { 0%,100% { filter: drop-shadow(0 0 12px rgba(200,130,10,0.7)); transform: scale(1); } 33% { filter: drop-shadow(0 0 20px rgba(240,160,48,0.9)); transform: scale(1.02); } 66% { filter: drop-shadow(0 0 8px rgba(200,130,10,0.5)); transform: scale(0.99); } }
+  .hero-eyebrow { font-family: 'Cinzel', serif; font-size: 1.1rem; letter-spacing: 0.4em; text-transform: uppercase; color: var(--ember-dim); margin-bottom: 1.2rem; }
+  .hero-title { font-family: 'Cinzel Decorative', serif; font-size: clamp(2.8rem, 7vw, 5.5rem); font-weight: 700; color: var(--bone); line-height: 1.1; letter-spacing: 0.04em; text-shadow: 0 0 40px rgba(200,130,10,0.3); margin-bottom: 0.5rem; }
+  .hero-subtitle { font-family: 'Cinzel', serif; font-size: clamp(0.85rem, 2vw, 1.1rem); letter-spacing: 0.3em; text-transform: uppercase; color: var(--ember); margin-bottom: 2.5rem; }
+  .hero-desc { font-size: 1.5rem; color: #9a8f72; max-width: 520px; font-style: italic; line-height: 1.9; margin-bottom: 3.5rem; }
+  .divider { display: flex; align-items: center; gap: 1rem; margin: 2.5rem auto; max-width: 400px; }
+  .divider-line { flex: 1; height: 1px; background: linear-gradient(to right, transparent, var(--ember-dim), transparent); }
+  .divider-rune { color: var(--ember); font-size: 1rem; }
+  .btn-primary { font-family: 'Cinzel', serif; font-size: 0.75rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--ember-bright); border: 1px solid var(--ember-dim); padding: 0.9rem 2.8rem; text-decoration: none; display: inline-block; transition: all 0.3s; position: relative; }
+  .btn-primary::before, .btn-primary::after { content: ''; position: absolute; width: 6px; height: 6px; border-color: var(--ember); border-style: solid; transition: all 0.3s; }
+  .btn-primary::before { top: -3px; left: -3px; border-width: 1px 0 0 1px; }
+  .btn-primary::after { bottom: -3px; right: -3px; border-width: 0 1px 1px 0; }
+  .btn-primary:hover { background: rgba(200,130,10,0.08); border-color: var(--ember-bright); color: #fff; }
+
+  /* SECTIONS */
+  section { padding: 7rem 4rem; max-width: 1100px; margin: 0 auto; }
+  .section-header { display: flex; align-items: center; gap: 1.5rem; margin-bottom: 4rem; }
+  .section-number { font-family: 'Cinzel', serif; font-size: 0.7rem; color: var(--ember-dim); letter-spacing: 0.2em; }
+  .section-title { font-family: 'Cinzel', serif; font-size: clamp(1.2rem, 3vw, 1.7rem); font-weight: 600; color: var(--bone); letter-spacing: 0.15em; text-transform: uppercase; }
+  .section-line { flex: 1; height: 1px; background: linear-gradient(to right, var(--ember-dim), transparent); }
+
+  /* ABOUT */
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; }
+  .about-text p { color: #9a8f72; margin-bottom: 1.2rem; font-size: 1.2rem; }
+  .about-text p strong { color: var(--bone); font-style: normal; font-weight: 500; }
+  .attr-panel { background: var(--stone); border: 1px solid rgba(200,130,10,0.2); padding: 2rem; position: relative; }
+  .attr-panel::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(to right, transparent, var(--ember), transparent); }
+  .attr-label { font-family: 'Cinzel', serif; font-size: 0.9rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--ember-dim); margin-bottom: 1.5rem; }
+  .attr-row { display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem; }
+  .attr-name { font-family: 'Cinzel', serif; font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ash); width: 120px; flex-shrink: 0; }
+  .attr-bar { flex: 1; height: 3px; background: var(--mist); position: relative; }
+  .attr-fill { height: 100%; background: linear-gradient(to right, var(--ember-dim), var(--ember-bright)); position: relative; }
+  .attr-fill::after { content: ''; position: absolute; right: 0; top: -2px; width: 2px; height: 7px; background: var(--ember-bright); }
+  .attr-value { font-family: 'Cinzel', serif; font-size: 0.7rem; color: var(--ember); width: 30px; text-align: right; }
+
+  /* PROJECTS */
+  .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5px; background: rgba(200,130,10,0.08); border: 1px solid rgba(200,130,10,0.12); }
+  .project-card { background: var(--void); padding: 2.5rem; position: relative; transition: background 0.3s; cursor: pointer; }
+  .project-card:hover { background: var(--stone); }
+  .project-card:hover .project-title { color: var(--ember-bright); }
+  .project-type { font-family: 'Cinzel', serif; font-size: 0.6rem; letter-spacing: 0.35em; text-transform: uppercase; color: rgba(255,168,18,0.663); margin-bottom: 1rem; }
+  .project-title { font-family: 'Cinzel', serif; font-size: 1.1rem; font-weight: 600; color: var(--bone); letter-spacing: 0.08em; margin-bottom: 0.8rem; transition: color 0.3s; }
+  .project-desc { font-size: 1.1rem; color: #6b6354; line-height: 1.7; margin-bottom: 1.5rem; font-style: italic; }
+  .project-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .tag { font-family: 'Cinzel', serif; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(255,168,18,0.663); border: 1px solid rgba(239,155,11,0.2); padding: 0.2rem 0.6rem; }
+  .project-card.featured { grid-column: 1 / -1; display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+  .project-card.featured::before { content: '— FEATURED'; position: absolute; top: 2.5rem; right: 2.5rem; font-family: 'Cinzel', serif; font-size: 0.6rem; letter-spacing: 0.3em; color: var(--ember); }
+  .featured-visual { aspect-ratio: 16/9; width: 100%; object-fit: cover; border: 1px solid rgba(200,130,10,0.15); display: block; }
+
+  /* SHARED PANEL */
+  .codex-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; background: rgba(200,130,10,0.06); }
+  .codex-panel { background: var(--void); padding: 2.5rem; border: 1px solid rgba(200,130,10,0.1); position: relative; }
+  .codex-panel::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(to right, transparent, rgba(200,130,10,0.4), transparent); }
+  .codex-label { font-family: 'Cinzel', serif; font-size: 0.7rem; letter-spacing: 0.35em; text-transform: uppercase; color: rgba(255,168,18,0.663); margin-bottom: 1.2rem; }
+  .codex-title { font-family: 'Cinzel', serif; font-size: 1rem; font-weight: 600; color: var(--bone); letter-spacing: 0.1em; margin-bottom: 1rem; }
+  .codex-body { font-size: 1.1rem; color: #7a7060; line-height: 1.8; font-style: italic; }
+  .codex-body strong { color: #9a8f72; font-style: normal; }
+
+  /* RULESET TABLE */
+  .ruleset-table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+  .ruleset-table th { font-family: 'Cinzel', serif; font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ember-dim); text-align: left; padding: 0.5rem 0.75rem; border-bottom: 1px solid rgba(200,130,10,0.15); }
+  .ruleset-table td { font-size: 0.85rem; color: #7a7060; padding: 0.45rem 0.75rem; border-bottom: 1px solid rgba(255,255,255,0.03); font-style: italic; }
+  .ruleset-table td:first-child { color: var(--bone); font-style: normal; font-family: 'Cinzel', serif; font-size: 0.72rem; letter-spacing: 0.1em; }
+  .ruleset-table tr:hover td { background: rgba(200,130,10,0.04); }
+
+  /* LEVEL MAP */
+  .level-map { background: var(--stone); border: 1px solid rgba(200,130,10,0.12); padding: 1.5rem; margin-top: 1rem; font-family: 'Share Tech Mono', monospace; font-size: 0.72rem; color: rgba(200,130,10,0.5); line-height: 1.6; }
+  .level-map .map-title { color: var(--ember-dim); margin-bottom: 0.5rem; font-size: 0.65rem; letter-spacing: 0.3em; text-transform: uppercase; font-family: 'Cinzel', serif; }
+
+  /* ARTS */
+  .arts-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5px; background: rgba(200,130,10,0.06); }
+  .art-card { background: var(--void); position: relative; overflow: hidden; cursor: pointer; }
+  .art-card:hover .art-overlay { opacity: 1; }
+.art-placeholder{
+  aspect-ratio: 1;
+  background: var(--stone);
+  position: relative;
+  overflow: hidden;
+  display: block;     
+}
+
+.art-placeholder img{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;  
+  display: block;
+}
+  .art-placeholder-icon { font-size: 2rem; color: rgba(200,130,10,0.15); }
+  .art-placeholder-text { font-family: 'Cinzel', serif; font-size: 0.58rem; letter-spacing: 0.25em; text-transform: uppercase; color: rgba(200,130,10,0.2); }
+  .art-overlay { position: absolute; inset: 0; background: rgba(8,8,8,0.82); display: flex; flex-direction: column; align-items: center; justify-content: center; opacity: 0; transition: opacity 0.3s; padding: 1rem; text-align: center; }
+  .art-overlay-title { font-family: 'Cinzel', serif; font-size: 0.75rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--bone); margin-bottom: 0.4rem; }
+  .art-overlay-sub { font-size: 0.8rem; color: var(--ember-dim); font-style: italic; }
+  .art-wide { grid-column: span 2; }
+  .art-wide .art-placeholder { aspect-ratio: 2/1; }
+
+  /* CHAR SHEETS */
+  .char-sheet { background: var(--stone); border: 1px solid rgba(200,130,10,0.15); padding: 2rem; }
+  .char-sheet-header { margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid rgba(200,130,10,0.1); }
+  .char-name { font-family: 'Cinzel', serif; font-size: 1rem; color: var(--bone); letter-spacing: 0.15em; }
+  .char-class { font-family: 'Cinzel', serif; font-size: 0.62rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--ember-dim); margin-top: 0.3rem; }
+  .char-stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+  .char-stat { text-align: center; }
+  .char-stat-val { font-family: 'Cinzel', serif; font-size: 1.3rem; color: var(--ember); }
+  .char-stat-name { font-family: 'Cinzel', serif; font-size: 0.55rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ash); margin-top: 0.2rem; }
+
+  /* CODE BLOCKS */
+.forge-grid{
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 2rem;
+  align-items: start;
+}
+
+.code-block{
+  background: #0d0d0d;
+  border: 1px solid rgba(200,130,10,0.15);
+  min-width: 0; /* allows inner scroll instead of forcing wider grid item */
+}
+
+.code-header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.75rem 1.25rem;
+  border-bottom: 1px solid rgba(200,130,10,0.1);
+}
+
+.code-filename{
+  font-family: 'Cinzel', serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  color: var(--ember-dim);
+}
+
+.code-lang{
+  margin-left: auto;
+  text-align: right;
+  white-space: nowrap;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.7rem;
+  color: rgba(200, 130, 10, 0.473);
+}
+
+.code-body{
+  padding: 1.25rem;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 0.78rem;
+  line-height: 1.7;
+  color: #7a8a6a;
+
+  overflow-x: auto;
+  max-width: 100%;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-gutter: stable both-edges;
+}
+
+.code-body pre{
+  margin: 0;
+  white-space: pre;
+  min-width: max-content;
+}
+
+.code-body .kw { color: #c8820a; }
+.code-body .fn { color: #a0c080; }
+.code-body .cm { color: #3a4a30; font-style: italic; }
+.code-body .nm { color: #d4c9a8; }
+
+/* Themed scrollbar for code snippets (Chromium/Safari/Edge) */
+.code-body::-webkit-scrollbar{ height: 10px; }
+.code-body::-webkit-scrollbar-track{
+  background: rgba(200,130,10,0.08);
+  border: 1px solid rgba(200,130,10,0.12);
+  border-radius: 999px;
+}
+.code-body::-webkit-scrollbar-thumb{
+  background: linear-gradient(to right, var(--ember-dim), var(--ember-bright));
+  border: 1px solid rgba(8,8,8,0.6);
+  border-radius: 999px;
+}
+.code-body::-webkit-scrollbar-thumb:hover{
+  background: linear-gradient(to right, var(--ember), var(--ember-bright));
+}
+
+/* Firefox */
+.code-body{
+  scrollbar-width: thin;
+  scrollbar-color: var(--ember-dim) rgba(200,130,10,0.08);
+}
+  /* ARCHITECTURE */
+  .arch-panel { background: var(--stone); border: 1px solid rgba(200,130,10,0.12); padding: 2rem; }
+  .arch-nodes { display: flex; gap: 1.5px; margin-top: 1.5rem; background: rgba(200,130,10,0.05); }
+  .arch-node { flex: 1; background: var(--void); padding: 1.25rem 1rem; text-align: center; position: relative; }
+  .arch-node::after { content: '→'; position: absolute; right: -0.85rem; top: 50%; transform: translateY(-50%); color: var(--ember-dim); font-size: 0.75rem; z-index: 1; }
+  .arch-node:last-child::after { display: none; }
+  .arch-node-title { font-family: 'Cinzel', serif; font-size: 0.8rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(200, 130, 10, 0.547); margin-bottom: 0.6rem; }
+  .arch-node-items { font-size: 0.85rem; color: #5a5248; font-style: italic; line-height: 1.7; }
+
+  /* FEATURE LIST */
+  .feature-list { list-style: none; margin-top: 1rem; }
+  .feature-list li { display: flex; align-items: start; gap: 0.75rem; padding: 0.6rem 0; border-bottom: 1px solid rgba(255,255,255,0.03); font-size: 0.9rem; color: #6b6354; }
+  .feature-list li::before { content: '✦'; color: var(--ember-dim); flex-shrink: 0; font-size: 0.6rem; margin-top: 0.35rem; }
+  .feature-list li strong { color: var(--bone); font-style: normal; }
+
+  /* ANALYSIS */
+  .analysis-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2px; background: rgba(200,130,10,0.06); margin-bottom: 3rem; }
+  .analysis-card { background: var(--void); padding: 2rem; border: 1px solid rgba(200,130,10,0.08); cursor: pointer; transition: background 0.3s; }
+  .analysis-card:hover, .analysis-card.active { background: var(--stone); border-color: rgba(200,130,10,0.3); }
+  .analysis-card.active .analysis-game { color: var(--ember-bright); }
+  .analysis-num { font-family: 'Cinzel', serif; font-size: 0.6rem; letter-spacing: 0.25em; color: var(--ember-dim); margin-bottom: 0.8rem; }
+  .analysis-game { font-family: 'Cinzel', serif; font-size: 0.9rem; font-weight: 600; color: var(--bone); letter-spacing: 0.1em; margin-bottom: 0.3rem; transition: color 0.3s; }
+  .analysis-focus { font-size: 0.85rem; color: #4a4538; font-style: italic; }
+  .analysis-content { background: var(--stone); border: 1px solid rgba(200,130,10,0.12); padding: 2.5rem; position: relative; display: none; }
+  .analysis-content.active { display: block; }
+  .analysis-content::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(to right, transparent, var(--ember-dim), transparent); }
+  .analysis-content h4 { font-family: 'Cinzel', serif; font-size: 0.72rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--ember); margin-bottom: 1rem; }
+  .analysis-content p { font-size: 1.25rem; color: #7a7060; line-height: 1.9; font-style: italic; margin-bottom: 1rem; }
+  .analysis-content p strong { color: #9a8f72; font-style: normal; }
+  .analysis-content p:last-child { margin-bottom: 0; }
+  .analysis-quote { border-left: 2px solid var(--ember-dim); padding-left: 1.5rem; margin: 1.5rem 0; }
+  .analysis-quote p { font-size: 1rem; color: #6b6354; font-style: italic; }
+  .analysis-quote cite { font-family: 'Cinzel', serif; font-size: 0.6rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ember-dim); display: block; margin-top: 0.5rem; }
+
+  /* SKILLS */
+  .skills-container { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; background: rgba(200,130,10,0.08); }
+  .skill-group { background: var(--void); padding: 2rem; }
+  .skill-group-title { font-family: 'Cinzel', serif; font-size: 0.65rem; letter-spacing: 0.35em; text-transform: uppercase; color: var(--ember); margin-bottom: 1.5rem; padding-bottom: 0.75rem; border-bottom: 1px solid rgba(200,130,10,0.15); }
+  .skill-item { display: flex; justify-content: space-between; align-items: center; padding: 0.4rem 0; border-bottom: 1px solid rgba(255,255,255,0.03); }
+  .skill-name { font-size: 0.9rem; color: #7a7060; font-style: italic; }
+  .skill-dots { display: flex; gap: 4px; }
+  .dot { width: 6px; height: 6px; border: 1px solid rgba(200,130,10,0.3); background: transparent; }
+  .dot.filled { background: var(--ember-dim); border-color: var(--ember); }
+
+  /* CONTACT */
+  #contact { text-align: center; padding: 8rem 2rem; }
+  .contact-pre { font-family: 'Cinzel', serif; font-size: 0.85rem; letter-spacing: 0.4em; text-transform: uppercase; color: rgba(255,168,18,0.438); margin-bottom: 1.5rem; }
+  .contact-title { font-family: 'Cinzel Decorative', serif; font-size: clamp(1.8rem, 5vw, 3.5rem); color: var(--bone); margin-bottom: 1rem; letter-spacing: 0.05em; }
+  .contact-sub { font-size: 1.3rem; color: #6b6354; font-style: italic; margin-bottom: 3rem; max-width: 400px; margin-left: auto; margin-right: auto; }
+  .contact-links { display: flex; justify-content: center; gap: 2.5rem; flex-wrap: wrap; margin-top: 2rem; }
+  .contact-link { font-family: 'Cinzel', serif; font-size: 0.68rem; letter-spacing: 0.3em; text-transform: uppercase; color: var(--ash); text-decoration: none; transition: color 0.3s; padding-bottom: 4px; border-bottom: 1px solid transparent; }
+  .contact-link:hover { color: var(--ember-bright); border-bottom-color: var(--ember-dim); }
+
+  /* FOOTER */
+  footer { padding: 2rem 4rem; border-top: 1px solid rgba(200,130,10,0.08); display: flex; justify-content: center; align-items: center; }
+  footer p { font-family: 'Cinzel', serif; font-size: 0.8rem; letter-spacing: 0.25em; color: #7f5a34; text-transform: uppercase; }
+  .footer-rune { color: var(--ember-dim); font-size: 1.2rem; animation: flicker 3s ease-in-out infinite; }
+
+  /* REVEAL */
+  .reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.8s ease, transform 0.8s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* RESPONSIVE */
+  @media (max-width: 900px) {
+    .codex-grid, .forge-grid, .analysis-grid { grid-template-columns: 1fr; }
+    .arts-grid { grid-template-columns: 1fr 1fr; }
+    .art-wide { grid-column: span 1; }
+    .art-wide .art-placeholder { aspect-ratio: 1; }
+    .arch-nodes { flex-direction: column; }
+    .arch-node::after { display: none; }
+  }
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { gap: 1rem; }
+    section { padding: 5rem 1.5rem; }
+    .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+    .skills-container { grid-template-columns: 1fr; }
+    .project-card.featured { grid-template-columns: 1fr; }
+    .arts-grid { grid-template-columns: 1fr; }
+    .char-stats-grid { grid-template-columns: repeat(2,1fr); }
+    footer { padding: 1.5rem; flex-direction: column; gap: 0.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#hero" class="nav-sigil">⚜ Mostafa Abdl Ghani</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#design">Design</a></li>
+    <li><a href="#arts">Arts</a></li>
+    <li><a href="#programming">Code</a></li>
+    <li><a href="#analysis">Analysis</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <svg class="bonfire-svg" viewBox="0 0 120 140" xmlns="http://www.w3.org/2000/svg">
+    <rect x="30" y="108" width="60" height="8" rx="4" fill="#2a1a0a"/>
+    <rect x="22" y="104" width="76" height="8" rx="4" fill="#1e1208"/>
+    <ellipse cx="60" cy="115" rx="38" ry="10" fill="rgba(200,100,0,0.18)"/>
+    <ellipse cx="60" cy="88" rx="22" ry="28" fill="rgba(120,40,0,0.4)"/>
+    <path d="M40 110 Q35 80 50 60 Q45 75 60 55 Q55 70 70 50 Q75 68 65 80 Q80 65 78 90 Q82 72 72 58 Q85 80 75 108 Z" fill="#6b2000" opacity="0.7"/>
+    <path d="M44 110 Q38 82 53 62 Q48 76 62 58 Q57 72 68 53 Q72 70 64 82 Q76 68 74 92 Q77 76 68 62 Q80 82 72 108 Z" fill="#b04000"/>
+    <path d="M48 110 Q42 85 56 65 Q52 78 64 60 Q60 74 70 56 Q74 72 66 84 Q77 71 75 94 Q77 79 69 65 Q80 84 73 108 Z" fill="#d86010"/>
+    <path d="M52 110 Q47 88 59 70 Q55 82 65 65 Q62 77 70 60 Q74 74 67 85 Q76 74 74 96 Q76 82 68 69 Q78 86 71 108 Z" fill="#e88020"/>
+    <path d="M56 108 Q52 92 60 78 Q58 88 64 80 Q62 90 68 83 Q66 94 62 100 Z" fill="#f0b040" opacity="0.9"/>
+    <ellipse cx="62" cy="103" rx="8" ry="5" fill="#ffd060" opacity="0.5"/>
+    <rect x="58" y="60" width="4" height="40" fill="rgba(0,0,0,0.5)" rx="1"/>
+    <rect x="51" y="74" width="18" height="3" fill="rgba(0,0,0,0.4)" rx="1"/>
+  </svg>
+  <p class="hero-eyebrow">Kindled from the ashes</p>
+  <h1 class="hero-title">Mostafa Abdl Ghani</h1>
+  <p class="hero-subtitle">Game Developer &amp; Designer</p>
+  <p class="hero-desc">Forging worlds from dark pixel and light code.<br>Souls-like mechanics. Atmospheric storytelling.<br>Unity &bull; C# &bull; Pixel Art</p>
+  <div class="divider"><span class="divider-line"></span><span class="divider-rune">✦</span><span class="divider-line"></span></div>
+  <a href="#projects" class="btn-primary">View My Work</a>
+</section>
+
+<!-- 01 ABOUT -->
+<section id="about">
+  <div class="section-header reveal">
+    <span class="section-number">01</span>
+    <h2 class="section-title">The Ashen One</h2>
+    <span class="section-line"></span>
+  </div>
+  <div class="about-grid">
+    <div class="about-text reveal">
+      <p>I am a <strong>game developer</strong> drawn to the space between light and darkness — where every mechanic has weight and every environment tells a story without words.</p>
+      <p>My craft lives in <strong>Unity and C#</strong>, breathing life into pixel worlds. I build systems that feel intentional — responsive combat, emergent narratives, atmospheres that linger.</p>
+      <p>Currently forging <strong>Graveborne</strong>, a 2D souls-like metroidvania set in the decaying kingdom of Velmir — where a betrayed knight wakes from his grave with nothing but broken memory and a will to persist.</p>
+      <div class="divider" style="max-width:200px;margin:2rem 0;"><span class="divider-line"></span><span class="divider-rune">✦</span><span class="divider-line"></span></div>
+      <a href="#contact" class="btn-primary">Seek Audience</a>
+    </div>
+    <div class="attr-panel reveal" style="transition-delay:0.15s">
+      <p class="attr-label">Character Attributes</p>
+      <div class="attr-row"><span class="attr-name">Vigor</span><div class="attr-bar"><div class="attr-fill" style="width:22%"></div></div><span class="attr-value">22</span></div>
+      <div class="attr-row"><span class="attr-name">Attunement</span><div class="attr-bar"><div class="attr-fill" style="width:30%"></div></div><span class="attr-value">30</span></div>
+      <div class="attr-row"><span class="attr-name">Endurance</span><div class="attr-bar"><div class="attr-fill" style="width:72%"></div></div><span class="attr-value">72</span></div>
+      <div class="attr-row"><span class="attr-name">Strength</span><div class="attr-bar"><div class="attr-fill" style="width:80%"></div></div><span class="attr-value">80</span></div>
+      <div class="attr-row"><span class="attr-name">Dexterity</span><div class="attr-bar"><div class="attr-fill" style="width:55%"></div></div><span class="attr-value">55</span></div>
+      <div class="attr-row"><span class="attr-name">Intelligence</span><div class="attr-bar"><div class="attr-fill" style="width:90%"></div></div><span class="attr-value">90</span></div>
+      <div class="attr-row"><span class="attr-name">Faith</span><div class="attr-bar"><div class="attr-fill" style="width:99%"></div></div><span class="attr-value">99</span></div>
+      <div class="attr-row"><span class="attr-name">Luck</span><div class="attr-bar"><div class="attr-fill" style="width:5%"></div></div><span class="attr-value">5</span></div>
+      <p style="font-size:1.15rem;color:var(--ember-dim);font-style:italic;margin-top:1.5rem;font-family:'EB Garamond'">"Even a hollow can be kindled."</p>
+    </div>
+  </div>
+</section>
+
+<!-- 02 PROJECTS -->
+<section id="projects" style="max-width:1100px;margin:0 auto;">
+  <div class="section-header reveal">
+    <span class="section-number">02</span>
+    <h2 class="section-title">The Armory</h2>
+    <span class="section-line"></span>
+  </div>
+  <div class="projects-grid reveal">
+    <div class="project-card featured">
+      <div>
+        <p class="project-type">Current Work &bull; 2D Metroidvania</p>
+        <h3 class="project-title">Graveborne</h3>
+        <p class="project-desc">A knight. A grave. A king who sold his kingdom's soul. Graveborne is a 2D souls-like metroidvania set in the rotting heart of Velmir, where every scar tells a story you can't remember.</p>
+        <div class="project-tags">
+          <span class="tag">Unity</span><span class="tag">C#</span><span class="tag">Pixel Art</span><span class="tag">Souls-like</span><span class="tag">Metroidvania</span>
+        </div>
+      </div>
+      <img src="GraveborneOverview.png" class="featured-visual" alt="Graveborne screenshot">
+    </div>
+  </div>
+</section>
+
+<!-- 03 GAME DESIGN -->
+<section id="design">
+  <div class="section-header reveal">
+    <span class="section-number">03</span>
+    <h2 class="section-title">The Codex — Game Design</h2>
+    <span class="section-line"></span>
+  </div>
+  <div class="codex-grid reveal">
+
+    <div class="codex-panel">
+      <p class="codex-label">Game Concept &amp; Documentation</p>
+      <h3 class="codex-title">Graveborne — Design Overview</h3>
+      <div class="codex-body">
+        <p><strong>Core Loop:</strong> Explore → Combat → Die → Respawn at Grave → Grow stronger. Death is the mechanic. Graves serve as bonfires: respawn, fast travel, level up, unlock memory fragments.</p>
+        <br>
+        <p><strong>Design Pillars:</strong> Weight (every hit must feel earned), Mystery (lore delivered through environment and item descriptions), Persistence (character build evolves across sessions via the Grave system).</p>
+        <br>
+        <p><strong>Target audience:</strong> Fans of Dark Souls, Hollow Knight and Dead Cells who appreciate tight combat, interconnected worlds, and stories told without cutscenes.</p>
+      </div>
+    </div>
+
+<div class="codex-panel">
+  <p class="codex-label">Ruleset Development — Combat System</p>
+  <h3 class="codex-title">Damage Mitigation &amp; Ailment Resistance (PlayerStats)</h3>
+
+  <table class="ruleset-table">
+    <thead>
+      <tr>
+        <th>Incoming Type</th>
+        <th>Mitigation scales with (PlayerStats)</th>
+        <th>Notes</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Physical</td><td>STR, VIG, END, (small) DEX</td><td>Heavy STR contribution for tank builds.</td></tr>
+      <tr><td>Fire</td><td>STR, FAI, VIG</td><td>Faith improves fire survivability.</td></tr>
+      <tr><td>Lightning</td><td>END, VIG, (small) DEX</td><td>Endurance is the main lightning defense stat.</td></tr>
+      <tr><td>Frost</td><td>VIG, END, DEX, INT (balanced)</td><td>Even split across 4 stats.</td></tr>
+      <tr><td>Magic</td><td>FAI, INT, VIG</td><td>Hybrid caster defenses (INT+FAI).</td></tr>
+    </tbody>
+  </table>
+
+  <p style="font-size:1rem;color:#4a4538;font-style:italic;margin-top:0.9rem;">
+    <strong>Player ailments (buildup):</strong> Bleed, Burn, Poison, Frost, Curse, Shock, Arcane.
+    Resistance reduces buildup via <strong>StatusBuildupMultiplier</strong>.
+  </p>
+
+  <p style="font-size:0.95rem;color:#4a4538;font-style:italic;margin-top:0.6rem;">
+    <strong>Weapon scaling (outgoing damage):</strong> Not tied to damage type. Each weapon profile defines its own
+    scaling entries (Stat + Rank E→S) in the weapon’s data.
+  </p>
+</div>
+
+    <div class="codex-panel">
+      <p class="codex-label">Level Design — Area Layout Draft</p>
+      <h3 class="codex-title">Hell — Area</h3>
+      <div class="level-map">
+        <p class="map-title">Connection Map</p>
+        <pre>   
+                                              [Unique Access (maybe through NPC Quest progression / Lore hint)]
+                                                              │ 
+                                                           [Zone X]
+                                                              │
+                                                              │ (one way only)
+                                                              │
+ [Prison Area]  ──── [ENTRANCE Passage] ──── [Zone A] ──── [Zone B] ──── [Zone D] 
+                            │             │             │
+                    [Secret Passage]   [Zone C]    [Boss Antechamber] ══ [FIRE KNIGHT] - In Hell's lowest point
+                            │             |
+                      [Hidden Chest]   [Owl Zone] ──── [Chest]         
+        </pre>
+      </div>
+    </div>
+
+    <div class="codex-panel">
+      <p class="codex-label">Boss Design — Phase Documentation</p>
+      <h3 class="codex-title">The Fire Knight — Two-Phase Design</h3>
+      <div class="codex-body">
+        <p><strong>Phase 1 — Recognition:</strong> He fights with familiar swordsmanship. The player learns the moveset. The music is mournful, not aggressive. He is not a monster yet.</p>
+        <br>
+        <p><strong>Phase 2 — Transformation:</strong> At 50% HP, fire consumes him. Speed increases, new attacks emerge, the music shifts. The player must unlearn what they just learned.</p>
+        <br>
+        <p><strong>Design intent:</strong> Both Ashar and the Fire Knight were knights who were betrayed — but one succumbed to the fire. The fight is a mirror, not just an obstacle.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- 04 GAME ARTS -->
+<section id="arts">
+  <div class="section-header reveal">
+    <span class="section-number">04</span>
+    <h2 class="section-title">The Reliquary — Game Arts</h2>
+    <span class="section-line"></span>
+  </div>
+
+  <div class="arts-grid reveal">
+    <div class="art-card art-wide">
+      <div class="art-placeholder">
+        <!-- Replace with: <img src="environment-velmir.png" alt="Velmir environment"> -->
+        <img src="Velmir.png" alt="Velmir environment">
+        <span class="art-placeholder-text">Environment — Velmir</span>
+      </div>
+      <div class="art-overlay"><p class="art-overlay-title">Velmir — Environment Concept</p></div>
+    </div>
+    <div class="art-card">
+      <div class="art-placeholder">
+         <img src="Ashar.png" alt="Ashar"> 
+      </div>
+      <div class="art-overlay"><p class="art-overlay-title">Ashar — Protagonist</p><p class="art-overlay-sub">Knight, betrayed, reborn</p></div>
+    </div>
+    <div class="art-card">
+      <div class="art-placeholder">
+        <img src="Ghost.png" alt="Ghost">
+      </div>
+      <div class="art-overlay"><p class="art-overlay-title">Ghost — Owl Companion</p><p class="art-overlay-sub">Dark, glowing, traversal mechanic</p></div>
+    </div>
+    <div class="art-card">
+      <div class="art-placeholder">
+        <img src="FireKnight.png" alt="Fire Knight">
+      </div>
+      <div class="art-overlay"><p class="art-overlay-title">Fire Knight — Boss</p><p class="art-overlay-sub">Ashar's old friend, 2-phase</p></div>
+    </div>
+    <div class="art-card">
+      <div class="art-placeholder">
+        <img src="Thalara.png" alt="Sprites">
+      </div>
+      <div class="art-overlay"><p class="art-overlay-title">Thalara — A wandering whisper </p><p class="art-overlay-sub">She speaks in riddles, leaving hints of events that haven’t happened… yet.</p></div>
+    </div>
+    <div class="art-card art-wide">
+      <div class="art-placeholder">
+        <img src="HUD.png" alt="HUD">
+      </div>
+      <div class="art-overlay"><p class="art-overlay-title">HUD &amp; UI Design</p><p class="art-overlay-sub">Souls-style minimal interface</p></div>
+    </div>
+  </div>
+
+  <!-- Character Sheets -->
+  <div style="margin-top:2rem;" class="reveal">
+    <p style="font-family:'Cinzel',serif;font-size:0.9rem;letter-spacing:0.3em;text-transform:uppercase;color: rgba(255,168,18,0.663);margin-bottom:1.5rem;">Character Sheets</p>
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:2px;background:rgba(200,130,10,0.06);">
+      <div class="char-sheet">
+        <div class="char-sheet-header"><p class="char-name">Ashar</p><p class="char-class">Knight / Protagonist</p></div>
+        <div class="char-stats-grid">
+          <div class="char-stat"><div class="char-stat-val">67</div><div class="char-stat-name">Vigor</div></div>
+          <div class="char-stat"><div class="char-stat-val">72</div><div class="char-stat-name">Strength</div></div>
+          <div class="char-stat"><div class="char-stat-val">80</div><div class="char-stat-name">Dexterity</div></div>
+          <div class="char-stat"><div class="char-stat-val">45</div><div class="char-stat-name">Faith</div></div>
+        </div>
+        <p style="font-size:1rem;color:#4a4538;font-style:italic;margin-top:1rem;">Betrayed and executed. Woke from the grave with no memories. Primary weapon: light sword.</p>
+      </div>
+      <div class="char-sheet">
+        <div class="char-sheet-header"><p class="char-name">Ghost</p><p class="char-class">Owl / Companion</p></div>
+        <div class="char-stats-grid">
+          <div class="char-stat"><div class="char-stat-val">∞</div><div class="char-stat-name">Loyalty</div></div>
+          <div class="char-stat"><div class="char-stat-val">—</div><div class="char-stat-name">Combat</div></div>
+          <div class="char-stat"><div class="char-stat-val">S</div><div class="char-stat-name">Traversal</div></div>
+          <div class="char-stat"><div class="char-stat-val">?</div><div class="char-stat-name">Origin</div></div>
+        </div>
+        <p style="font-size:1rem;color:#4a4538;font-style:italic;margin-top:1rem;">White glowing owl. Enables hanging traversal mechanic. True nature unknown.</p>
+      </div>
+      <div class="char-sheet">
+        <div class="char-sheet-header"><p class="char-name">Fire Knight</p><p class="char-class">Boss / Old Friend</p></div>
+        <div class="char-stats-grid">
+          <div class="char-stat"><div class="char-stat-val">95</div><div class="char-stat-name">Vigor</div></div>
+          <div class="char-stat"><div class="char-stat-val">88</div><div class="char-stat-name">Strength</div></div>
+          <div class="char-stat"><div class="char-stat-val">S</div><div class="char-stat-name">Fire</div></div>
+          <div class="char-stat"><div class="char-stat-val">2</div><div class="char-stat-name">Phases</div></div>
+        </div>
+        <p style="font-size:1rem;color:#4a4538;font-style:italic;margin-top:1rem;">Ashar's old comrade. Consumed by fire. Does not recognize him anymore.</p>
+      </div>
+      <div class="char-sheet">
+  <div class="char-sheet-header">
+    <p class="char-name">Thalara</p>
+    <p class="char-class">NPC / The Whisperer</p>
+  </div>
+
+  <div class="char-stats-grid">
+    <div class="char-stat"><div class="char-stat-val">?</div><div class="char-stat-name">Origin</div></div>
+    <div class="char-stat"><div class="char-stat-val">S</div><div class="char-stat-name">Insight</div></div>
+    <div class="char-stat"><div class="char-stat-val">—</div><div class="char-stat-name">Combat</div></div>
+    <div class="char-stat"><div class="char-stat-val">∞</div><div class="char-stat-name">Secrets</div></div>
+  </div>
+
+  <p style="font-size:1rem;color:#4a4538;font-style:italic;margin-top:1rem;">
+    A quiet wanderer who speaks of mysterious events and leaves hints where no one should be.
+    Some call her a prophet—others a witness that shouldn’t exist.
+  </p>
+</div>
+    </div>
+  </div>
+</section>
+
+<!-- 05 PROGRAMMING -->
+<section id="programming">
+  <div class="section-header reveal">
+    <span class="section-number">05</span>
+    <h2 class="section-title">The Forge — Game Programming</h2>
+    <span class="section-line"></span>
+  </div>
+
+  <div class="arch-panel reveal">
+  <p class="codex-label">Project Architecture — Script Modules + SO Data</p>
+
+  <div class="arch-nodes">
+    <div class="arch-node">
+      <p class="arch-node-title">ScriptableObjects</p>
+      <p class="arch-node-items">
+        WeaponArchetypeSO<br>
+        WeaponClassSO<br>
+        PlayerAttackData<br>
+        EnemyData (SO)
+      </p>
+    </div>
+
+    <div class="arch-node">
+      <p class="arch-node-title">Player Modules</p>
+      <p class="arch-node-items">
+        PlayerController<br>
+        PlayerMovement<br>
+        PlayerCombat<br>
+        PlayerSlope
+      </p>
+    </div>
+
+    <div class="arch-node">
+      <p class="arch-node-title">Combat + Stats</p>
+      <p class="arch-node-items">
+        WeaponInstance (AR / scaling)<br>
+        PlayerStats (status buildup)<br>
+        DefenseProfileData<br>
+        IDamageable
+      </p>
+    </div>
+
+    <div class="arch-node">
+      <p class="arch-node-title">Enemy AI (FSM)</p>
+      <p class="arch-node-items">
+        BaseEnemy (state loop)<br>
+        Patrol / Chase / Attack<br>
+        LOS + Retreat logic<br>
+        Enemy Effects (hit logic)
+      </p>
+    </div>
+
+    <div class="arch-node">
+      <p class="arch-node-title">World + VFX</p>
+      <p class="arch-node-items">
+        TilemapParallax<br>
+        PoolManager (reusable FX)<br>
+        Boss Effects<br>
+        UIManager (menus)
+      </p>
+    </div>
+  </div>
+</div>
+
+  <div class="forge-grid" style="margin-top:2rem;">
+    <div class="code-block reveal">
+      <div class="code-header"><span class="code-filename">WeaponInstance.cs</span><span class="code-lang">C# / Unity</span></div>
+      <div class="code-body"><pre><span class="cm">// Computes total Attack Rating (AR) from all damage profiles,
+// then applies requirement + durability multipliers.</span>
+<span class="kw">public float</span> <span class="fn">GetTotalAR</span>(<span class="nm">PlayerStats</span> stats)
+{
+    <span class="kw">if</span> (data == <span class="kw">null</span> || data.damageProfiles == <span class="kw">null</span>) <span class="kw">return</span> stats.Strength;
+
+    <span class="kw">float</span> totalAR = 0f;
+    <span class="kw">float</span> reqMult = <span class="fn">MeetsRequirements</span>(stats) ? 1f : 0.4f;
+    <span class="kw">float</span> durMult = <span class="fn">GetDurabilityMultiplier</span>();
+
+    <span class="kw">foreach</span> (<span class="kw">var</span> profile <span class="kw">in</span> data.damageProfiles)
+    {
+        totalAR += <span class="fn">GetDamageForType</span>(profile, stats);
+    }
+
+    <span class="kw">return</span> totalAR * reqMult * durMult;
+}
+
+<span class="kw">public</span> <span class="nm">Dictionary</span>&lt;<span class="nm">DamageType</span>, <span class="kw">float</span>&gt; <span class="fn">GetDamageBreakdown</span>(<span class="nm">PlayerStats</span> stats)
+{
+    <span class="kw">var</span> breakdown = <span class="kw">new</span> <span class="nm">Dictionary</span>&lt;<span class="nm">DamageType</span>, <span class="kw">float</span>&gt;();
+
+    <span class="kw">if</span> (data == <span class="kw">null</span> || data.damageProfiles == <span class="kw">null</span>)
+    {
+        breakdown[<span class="nm">DamageType</span>.Physical] = stats.Strength;
+        <span class="kw">return</span> breakdown;
+    }
+
+    <span class="kw">float</span> reqMult = <span class="fn">MeetsRequirements</span>(stats) ? 1f : 0.4f;
+    <span class="kw">float</span> durMult = <span class="fn">GetDurabilityMultiplier</span>();
+
+    <span class="kw">foreach</span> (<span class="kw">var</span> profile <span class="kw">in</span> data.damageProfiles)
+    {
+        <span class="kw">float</span> damage = <span class="fn">GetDamageForType</span>(profile, stats) * reqMult * durMult;
+
+        <span class="kw">if</span> (!breakdown.<span class="fn">ContainsKey</span>(profile.damageType))
+            breakdown[profile.damageType] = 0f;
+
+        breakdown[profile.damageType] += damage;
+    }
+
+    <span class="kw">return</span> breakdown;
+}
+
+<span class="kw">private float</span> <span class="fn">GetDamageForType</span>(<span class="nm">WeaponDamageProfile</span> profile, <span class="nm">PlayerStats</span> stats)
+{
+    <span class="kw">float</span> damage = profile.baseDamage;
+
+    <span class="kw">if</span> (profile.scaling != <span class="kw">null</span>)
+    {
+        <span class="kw">foreach</span> (<span class="kw">var</span> s <span class="kw">in</span> profile.scaling)
+        {
+            <span class="kw">if</span> (s.rank == <span class="nm">ScalingRank</span>.None) <span class="kw">continue</span>;
+
+            <span class="kw">float</span> statValue = stats.<span class="fn">GetStatValue</span>(s.stat);
+            <span class="kw">float</span> scalingMult = <span class="fn">GetScalingMultiplier</span>(s.rank);
+            damage += statValue * scalingMult;
+        }
+    }
+
+    <span class="kw">return</span> damage;
+}</pre></div>
+    </div>
+
+    <div class="code-block reveal" style="transition-delay:0.1s">
+      <div class="code-header"><span class="code-filename">BaseEnemy.cs</span><span class="code-lang">C# / Unity</span></div>
+      <div class="code-body"><pre><span class="cm">// Enemy core loop: early-outs (dead/no player), then resolves retreat/stun,
+// then runs a simple state machine (Patrolling → Chasing → Attacking/Blocking).</span>
+<span class="kw">protected virtual void</span> <span class="fn">Update</span>()
+{
+    <span class="kw">if</span> (state == <span class="nm">EnemyState</span>.Dead || player == <span class="kw">null</span>)
+        <span class="kw">return</span>;
+
+    slope?.<span class="fn">CheckSlope</span>();
+    <span class="fn">UpdatePhysicsMaterial</span>();
+
+    <span class="kw">if</span> (isRetreating) <span class="kw">return</span>;
+
+    <span class="kw">if</span> (<span class="fn">ShouldRetreat</span>())
+    {
+        <span class="fn">StartRetreat</span>();
+        <span class="kw">return</span>;
+    }
+
+    <span class="kw">bool</span> isPlayerInChaseBox = <span class="fn">IsPlayerInBox</span>(transform.position, enemyData.chaseBoxSize);
+    <span class="kw">bool</span> isPlayerInAttackRange = <span class="fn">IsPlayerInAttackRange</span>();
+    <span class="kw">bool</span> isAnyAttackReady = <span class="fn">IsAnyAttackReady</span>();
+
+    <span class="kw">if</span> (state == <span class="nm">EnemyState</span>.Stunned)
+    {
+        <span class="kw">if</span> (Time.time &gt;= stunEndTime)
+            state = <span class="nm">EnemyState</span>.Chasing;
+        <span class="kw">return</span>;
+    }
+
+    <span class="kw">bool</span> hasLOS = <span class="fn">HasLineOfSightToPlayer</span>();
+
+    <span class="kw">switch</span> (state)
+    {
+        <span class="kw">case</span> <span class="nm">EnemyState</span>.Patrolling:
+            <span class="kw">if</span> (isPlayerInChaseBox &amp;&amp; !<span class="nm">PlayerStats</span>.Instance.PlayerIsDead &amp;&amp; hasLOS)
+                state = <span class="nm">EnemyState</span>.Chasing;
+            <span class="kw">else</span>
+                <span class="fn">Patrol</span>();
+            <span class="kw">break</span>;
+
+        <span class="kw">case</span> <span class="nm">EnemyState</span>.Chasing:
+            <span class="kw">if</span> (!isPlayerInChaseBox || <span class="nm">PlayerStats</span>.Instance.PlayerIsDead || !hasLOS)
+            {
+                state = <span class="nm">EnemyState</span>.Patrolling;
+                rb.linearVelocity = <span class="kw">new</span> <span class="nm">Vector2</span>(0f, rb.linearVelocity.y);
+                animator.<span class="fn">SetBool</span>(<span class="nm">"isWalking"</span>, <span class="kw">false</span>);
+            }
+            <span class="kw">else if</span> (isPlayerInAttackRange &amp;&amp; isAnyAttackReady &amp;&amp; hasLOS)
+            {
+                rb.linearVelocity = <span class="kw">new</span> <span class="nm">Vector2</span>(0f, rb.linearVelocity.y);
+                animator.<span class="fn">SetBool</span>(<span class="nm">"isWalking"</span>, <span class="kw">false</span>);
+                <span class="kw">if</span> (<span class="fn">ShouldBlock</span>())
+                    state = <span class="nm">EnemyState</span>.Blocking;
+                <span class="kw">else</span>
+                    state = <span class="nm">EnemyState</span>.Attacking;
+            }
+            <span class="kw">else</span>
+            {
+                <span class="fn">ChasePlayer</span>();
+            }
+            <span class="kw">break</span>;
+
+        <span class="kw">case</span> <span class="nm">EnemyState</span>.Attacking:
+            <span class="kw">if</span> (isAttacking) <span class="kw">return</span>;
+            <span class="kw">if</span> (!isPlayerInAttackRange || !isAnyAttackReady || <span class="nm">PlayerStats</span>.Instance.PlayerIsDead || !hasLOS)
+                state = <span class="nm">EnemyState</span>.Chasing;
+            <span class="kw">else</span>
+            {
+                animator.<span class="fn">SetBool</span>(<span class="nm">"isWalking"</span>, <span class="kw">false</span>);
+                rb.linearVelocity = <span class="kw">new</span> <span class="nm">Vector2</span>(0f, rb.linearVelocity.y);
+                <span class="fn">Attack</span>();
+            }
+
+            <span class="kw">break</span>;
+
+        <span class="kw">case</span> <span class="nm">EnemyState</span>.Blocking:
+            <span class="fn">FlipToPlayer</span>();
+            <span class="kw">if</span> (!isBlocking)
+            {
+                animator.<span class="fn">SetBool</span>(<span class="nm">"isWalking"</span>, <span class="kw">false</span>);
+                rb.linearVelocity = <span class="kw">new</span> <span class="nm">Vector2</span>(0f, rb.linearVelocity.y);
+                <span class="fn">StartBlock</span>();
+
+            }
+            <span class="kw">break</span>;
+    }
+}</pre></div>
+    </div>
+ <div class="code-block reveal" style="transition-delay:0.1s">
+      <div class="code-header"><span class="code-filename">TilemapParallax.cs</span><span class="code-lang">C# / Unity</span></div>
+      <div class="code-body"><pre><span class="cm">// Updates per-group tile parallax by smoothing toward a camera-driven offset,
+// then applying a TRS matrix to active tiles while restoring removed tiles.</span>
+<span class="kw">private void</span> <span class="fn">UpdateGroupParallax</span>()
+{
+    <span class="kw">foreach</span> (<span class="nm">TileGroup</span> group <span class="kw">in</span> tileGroups)
+    {
+        <span class="kw">if</span> (!<span class="fn">IsGroupVisibleOnCurrentFloor</span>(group))
+            <span class="kw">continue</span>;
+
+        <span class="cm">// Smooth offset toward camera-based target</span>
+        <span class="nm">Vector3</span> targetOffset = <span class="fn">ComputeTargetOffset</span>(group);
+        <span class="kw">float</span> k = 1f - Mathf.Exp(-followLerpSpeed * Time.deltaTime);
+        group.currentOffset = <span class="nm">Vector3</span>.Lerp(group.currentOffset, targetOffset, k);
+
+        <span class="kw">bool</span> offsetChanged =
+            (group.lastAppliedOffset - group.currentOffset).sqrMagnitude &gt; OffsetEpsilonSqr;
+
+        <span class="cm">// Nothing active and nothing applied -&gt; reset offset</span>
+        <span class="kw">if</span> (group.activeTiles.Count == 0 &amp;&amp; group.appliedTiles.Count == 0)
+        {
+            group.currentOffset = <span class="nm">Vector3</span>.zero;
+            group.lastAppliedOffset = <span class="kw">new</span> <span class="nm">Vector3</span>(<span class="kw">float</span>.NaN, <span class="kw">float</span>.NaN, <span class="kw">float</span>.NaN);
+            group.parallaxBlend = 0f;
+            <span class="kw">continue</span>;
+        }
+
+        <span class="cm">// Remove tiles no longer active</span>
+        <span class="kw">if</span> (group.appliedTiles.Count &gt; 0)
+        {
+            group.removalBuffer.Clear();
+            <span class="kw">foreach</span> (<span class="kw">var</span> t <span class="kw">in</span> group.appliedTiles)
+            {
+                <span class="kw">if</span> (!group.activeTiles.Contains(t))
+                    group.removalBuffer.Add(t);
+            }
+            <span class="kw">foreach</span> (<span class="kw">var</span> t <span class="kw">in</span> group.removalBuffer)
+            {
+                tilemap.<span class="fn">SetTransformMatrix</span>(t, group.tileOriginalMatrices[t]);
+                group.appliedTiles.Remove(t);
+            }
+        }
+
+        <span class="cm">// Compute parallax matrix once per frame (always includes current offset)</span>
+        <span class="nm">Matrix4x4</span> parallaxMatrix =
+            <span class="nm">Matrix4x4</span>.TRS(group.currentOffset, Quaternion.identity, <span class="nm">Vector3</span>.one);
+
+        <span class="cm">// Apply parallax to all applied tiles (keep original flips/rotation)</span>
+        <span class="kw">foreach</span> (<span class="kw">var</span> t <span class="kw">in</span> group.appliedTiles)
+        {
+            tilemap.<span class="fn">SetTransformMatrix</span>(t, parallaxMatrix * group.tileOriginalMatrices[t]);
+        }
+
+        <span class="cm">// Apply parallax to newly active tiles</span>
+        <span class="kw">foreach</span> (<span class="kw">var</span> t <span class="kw">in</span> group.activeTiles)
+        {
+            <span class="kw">if</span> (!group.appliedTiles.Contains(t))
+            {
+                tilemap.<span class="fn">SetTransformMatrix</span>(t, parallaxMatrix * group.tileOriginalMatrices[t]);
+                group.appliedTiles.Add(t);
+            }
+        }
+
+        group.parallaxBlend = group.isActive ? 1f : 0f;
+        group.lastAppliedOffset = group.currentOffset;
+    }
+}</pre></div>
+    </div>
+<div class="code-block reveal" style="transition-delay:0.1s">
+      <div class="code-header"><span class="code-filename">PlayerStats.Status.cs</span><span class="code-lang">C# / Unity</span></div>
+      <div class="code-body"><pre><span class="cm">// Applies status buildup with resistance scaling, blocks buildup if the effect is already active,
+// and triggers the status once the threshold is reached (either holding at full or resetting).</span>
+<span class="kw">public bool</span> <span class="fn">AddStatusBuildup</span>(<span class="nm">StatusAilment</span> ailment, <span class="kw">float</span> rawAmount)
+{
+    <span class="kw">if</span> (PlayerIsDead) <span class="kw">return</span> <span class="kw">false</span>;
+    <span class="kw">if</span>(pc.Movement.IsInvincible) <span class="kw">return</span> <span class="kw">false</span>;
+
+    <span class="fn">EnsureBuildupInit</span>();
+
+    <span class="cm">// If an effect is currently active, block new buildup for that ailment</span>
+    <span class="kw">if</span> (_activeEffectLock.<span class="fn">Contains</span>(ailment))
+        <span class="kw">return</span> <span class="kw">false</span>;
+
+    <span class="cm">// More resistance =&gt; slower fill</span>
+    <span class="kw">float</span> add = rawAmount * <span class="fn">StatusBuildupMultiplier</span>(ailment);
+    <span class="kw">float</span> before = _buildup[ailment];
+    <span class="kw">float</span> after = Mathf.<span class="fn">Min</span>(statusThreshold, before + Mathf.<span class="fn">Max</span>(0f, add));
+
+    <span class="kw">if</span> (!Mathf.<span class="fn">Approximately</span>(after, before))
+    {
+        _buildup[ailment] = after;
+        OnStatusBuildupChanged?.<span class="fn">Invoke</span>(ailment, after, statusThreshold);
+    }
+
+    <span class="kw">if</span> (after &gt;= statusThreshold)
+    {
+        <span class="cm">// Trigger effect</span>
+        <span class="fn">TriggerStatus</span>(ailment);
+        <span class="cm">// Notify UI</span>
+        OnStatusTriggered?.<span class="fn">Invoke</span>(ailment);
+
+        <span class="kw">if</span> (<span class="fn">HoldAtFullOnTrigger</span>(ailment))
+        {
+            <span class="cm">// Keep bar full and start a controlled decay driven by the effect's duration coroutine</span>
+            _buildup[ailment] = statusThreshold;
+            OnStatusBuildupChanged?.<span class="fn">Invoke</span>(ailment, statusThreshold, statusThreshold);
+            <span class="cm">// Note: the corresponding coroutine (burn/poison/arcane) will take ownership of decaying the bar.</span>
+        }
+        <span class="kw">else</span>
+        {
+            <span class="cm">// Instant effects reset immediately</span>
+            _buildup[ailment] = 0f;
+            OnStatusBuildupChanged?.<span class="fn">Invoke</span>(ailment, 0f, statusThreshold);
+        }
+        <span class="kw">return</span> <span class="kw">true</span>;
+    }
+
+    <span class="kw">return</span> <span class="kw">false</span>;
+}</pre></div>
+    </div>
+
+    <div class="codex-panel reveal" style="transition-delay:0.3s">
+      <p class="codex-label">Implemented Features</p>
+      <h3 class="codex-title">What's Built/In Progress in Graveborne</h3>
+      <ul class="feature-list">
+        <li><strong>3 weapon classes</strong> — light sword done, staff &amp; heavy sword WIP</li>
+        <li><strong>5 damage types</strong> with player/enemies/bosses resistances &amp; weaknesses</li>
+        <li><strong>6 ailment types</strong> with buildup &amp; threshold system</li>
+        <li><strong>E–S scaling grades &amp; Requirements </strong> per weapon per stat</li>
+        <li><strong>Grave system</strong> — respawn, fast travel, level up, memory unlock</li>
+        <li><strong>30+ enemies</strong> with unique FSM behaviours</li>
+        <li><strong>10+ bosses</strong> including multi-phase bosses</li>
+        <li><strong>Weapon durability</strong> system affecting damage output</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 06 WRITTEN ANALYSIS -->
+<section id="analysis">
+  <div class="section-header reveal">
+    <span class="section-number">06</span>
+    <h2 class="section-title">The Scriptorium — Written Analysis</h2>
+    <span class="section-line"></span>
+  </div>
+
+  <div class="analysis-grid reveal">
+    <div class="analysis-card active" onclick="switchAnalysis(0)">
+      <p class="analysis-num">I</p>
+      <p class="analysis-game">Elden Ring</p>
+      <p class="analysis-focus">Open world design &amp; player agency</p>
+    </div>
+    <div class="analysis-card" onclick="switchAnalysis(1)">
+      <p class="analysis-num">II</p>
+      <p class="analysis-game">Lord of the Rings</p>
+      <p class="analysis-focus">World-building &amp; mythology layering</p>
+    </div>
+    <div class="analysis-card" onclick="switchAnalysis(2)">
+      <p class="analysis-num">III</p>
+      <p class="analysis-game">Red Dead Redemption 2</p>
+      <p class="analysis-focus">Narrative pacing &amp; environmental storytelling</p>
+    </div>
+  </div>
+
+  <div class="analysis-content active reveal" id="analysis-0">
+    <h2>How Elden Ring Redefined Open World Design</h2>
+    <p>Elden Ring succeeds where many open world games fail because it treats exploration as a reward system rather than a content delivery mechanism. The player is never told where to go — they are released into a world that is <strong>visually legible</strong>. A distant tower, a glowing tree on the horizon, a fog wall at the end of a dungeon: these are not waypoints but invitations.</p>
+    <p>The most important design lesson for Graveborne is Elden Ring's approach to <strong>optional difficulty</strong>. Nothing is locked behind a single path. Players who struggle with one boss can explore elsewhere, grow stronger, and return. This is what I am building into the Grave system — interconnected areas that open lateral routes rather than forcing a linear gauntlet.</p>
+    <div class="analysis-quote">
+      <p>The best souls-like challenge is not "this enemy is hard" but "this enemy teaches you something." Fromsoft designs enemies as information, not obstacles.</p>
+      <cite>— Personal design note, 2024</cite>
+    </div>
+  </div>
+
+  <div class="analysis-content reveal" id="analysis-1">
+    <h2>Tolkien's Mythology as a World-Building Template</h2>
+    <p>What makes Middle-earth feel ancient and real is not the volume of lore — it is the <strong>layering of consequence</strong>. Every ruin has a reason. Every name has an etymology. The Elves remember what Men have forgotten. This creates a world that feels like it existed before the story began.</p>
+    <p>This directly shapes how Velmir is built in Graveborne. The kingdom did not become corrupt overnight — the king's pact was made generations ago. The graveyard Ashar explores are filled with knights who died in a war that has since been rewritten by historians. Item descriptions are written from unreliable perspectives, just as Tolkien's appendices contain contradicting accounts.</p>
+    <p>The most transferable technique is what I call <strong>mythology layering</strong>: build the history of your world first, then subtract from it. What the player finds should feel like the surface of something much deeper — because it is.</p>
+  </div>
+
+  <div class="analysis-content reveal" id="analysis-2">
+    <h2>RDR2 and the Art of Environmental Storytelling</h2>
+    <p>Red Dead Redemption 2 almost never uses cutscenes to deliver its emotional core. The clearest example: the camp at Horseshoe Overlook early in the game is alive with laughter and argument. Return to the same location near the end and it is abandoned. No text. No notification. <strong>The world tells the story.</strong></p>
+    <p>This is the gold standard for environmental storytelling and it directly informs how Graveborne handles its Grave system. Each Grave in Velmir has a lore inscription when you first discover it. After certain boss is defeated, those inscriptions change — subtly, in ways a careful player notices and a casual player misses.</p>
+    <p>The design principle I extract: <strong>the player should be able to construct the story from observation alone</strong>. Dialogue and text are supplements, not foundations. A player who reads nothing in Graveborne can still feel the weight of Velmir's tragedy — they just won't know its name.</p>
+  </div>
+</section>
+
+<!-- 07 SKILLS -->
+<section id="skills">
+  <div class="section-header reveal">
+    <span class="section-number">07</span>
+    <h2 class="section-title">Disciplines &amp; Relics</h2>
+    <span class="section-line"></span>
+  </div>
+  <div class="skills-container reveal">
+    <div class="skill-group">
+      <p class="skill-group-title">⚔ Combat — Engine</p>
+      <div class="skill-item"><span class="skill-name">Unity</span><div class="skill-dots"><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div></div></div>
+      <div class="skill-item"><span class="skill-name">C#</span><div class="skill-dots"><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div></div></div>
+      <div class="skill-item"><span class="skill-name">Physics / Collision</span><div class="skill-dots"><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div></div>
+      <div class="skill-item"><span class="skill-name">Animation Systems</span><div class="skill-dots"><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div></div>
+      <div class="skill-item"><span class="skill-name">Shader Graph</span><div class="skill-dots"><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div><div class="dot"></div></div></div>
+    </div>
+    <div class="skill-group">
+      <p class="skill-group-title">🎨 Sorcery — Art</p>
+      <div class="skill-item"><span class="skill-name">Pixel Art</span><div class="skill-dots"><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div></div></div>
+      <div class="skill-item"><span class="skill-name">Aseprite</span><div class="skill-dots"><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div></div>
+      <div class="skill-item"><span class="skill-name">Tilemaps / Level Design</span><div class="skill-dots"><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div></div>
+      <div class="skill-item"><span class="skill-name">VFX / Particles</span><div class="skill-dots"><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div><div class="dot"></div></div></div>
+      <div class="skill-item"><span class="skill-name">UI / HUD Design</span><div class="skill-dots"><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div></div>
+    </div>
+    <div class="skill-group">
+      <p class="skill-group-title">📜 Miracles — Systems</p>
+      <div class="skill-item"><span class="skill-name">Game Architecture</span><div class="skill-dots"><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div></div></div>
+      <div class="skill-item"><span class="skill-name">Combat Design</span><div class="skill-dots"><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div></div></div>
+      <div class="skill-item"><span class="skill-name">AI / State Machines</span><div class="skill-dots"><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div></div>
+      <div class="skill-item"><span class="skill-name">Narrative Design</span><div class="skill-dots"><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div><div class="dot"></div></div></div>
+      <div class="skill-item"><span class="skill-name">Git / Version Control</span><div class="skill-dots"><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot filled"></div><div class="dot"></div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <p class="contact-pre reveal">Light the Bonfire</p>
+  <h2 class="contact-title reveal">Seek Alliance</h2>
+  <p class="contact-sub reveal">Whether you bring a quest, a collab, or merely wish to speak of dark places — the bonfire is lit.</p>
+  <div class="divider reveal" style="max-width:300px;margin:0 auto 2.5rem;"><span class="divider-line"></span><span class="divider-rune">✦</span><span class="divider-line"></span></div>
+  <a href="mailto:mustapha.abdlghani@gmail.com" class="btn-primary reveal">Send a Message</a>
+  <div class="contact-links reveal">
+    <a href="https://www.linkedin.com/in/mostafa-abdl-ghani-482810280" class="contact-link">LinkedIn</a>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Mostafa Abdl Ghani — All souls reserved</p>
+  <!-- <span class="footer-rune">⚔</span>
+  <p>Made with dark magic &amp; Unity</p> -->
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.08 });
+  reveals.forEach(el => obs.observe(el));
+
+  // Analysis switcher
+  function switchAnalysis(idx) {
+    document.querySelectorAll('.analysis-card').forEach((c,i) => c.classList.toggle('active', i===idx));
+    document.querySelectorAll('.analysis-content').forEach((p,i) => p.classList.toggle('active', i===idx));
+  }
+
+  // Ember cursor trail
+  const trail = [];
+  for (let i = 0; i < 8; i++) {
+    const d = document.createElement('div');
+    d.style.cssText = `position:fixed;width:4px;height:4px;border-radius:50%;background:rgba(200,130,10,${0.5-i*0.06});pointer-events:none;z-index:9998;transform:translate(-50%,-50%)`;
+    document.body.appendChild(d);
+    trail.push({ el: d, x: 0, y: 0 });
+  }
+  let mx = 0, my = 0;
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+  (function tick() {
+    let px = mx, py = my;
+    trail.forEach((t, i) => {
+      t.el.style.left = px + 'px'; t.el.style.top = py + 'px';
+      t.el.style.opacity = (1 - i / 8) * 0.6;
+      const tmp = { x: t.x, y: t.y }; t.x = px; t.y = py;
+      px = tmp.x || px; py = tmp.y || py;
+    });
+    requestAnimationFrame(tick);
+  })();
+</script>
+</body>
+</html>
